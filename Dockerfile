@@ -1,5 +1,6 @@
 FROM php:7.2.7-fpm
 
+LABEL maintainer="Michael Tam <michael@sunnyvision.com>"
 LABEL maintainer="Michael Tam <h.y.michael@icloud.com>"
 
 RUN apt-get update && apt-get upgrade -y \
@@ -45,3 +46,8 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get autoremove -y --purge \
     && apt-get clean \
     && rm -Rf /tmp/*
+
+# ffmpeg
+RUN apt-get update && apt-get upgrade -y \
+    ffmpeg
+    

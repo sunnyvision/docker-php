@@ -5,6 +5,7 @@ LABEL maintainer="Michael Tam <h.y.michael@icloud.com>"
 
 RUN apt-get update && apt-get upgrade -y \
     g++ \
+    libzip-dev \
     libc-client-dev \
     libfreetype6-dev \
     libicu-dev \

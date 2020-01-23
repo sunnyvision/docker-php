@@ -1,4 +1,4 @@
-FROM php:7.3.0-fpm
+FROM php:7.4.0-fpm
 
 LABEL maintainer="Michael Tam <michael@sunnyvision.com>"
 LABEL maintainer="Michael Tam <h.y.michael@icloud.com>"
@@ -19,8 +19,11 @@ RUN apt-get update && apt-get upgrade -y \
     libssl-dev \
     libssl-doc \
     libsasl2-dev \
-    zlib1g-dev \
-    && docker-php-ext-install \
+    zlib1g-dev;
+
+RUN apt-get update && apt-get upgrade -y libonig-dev;
+
+RUN docker-php-ext-install \
     bz2 \
     iconv \
     mbstring \
@@ -29,16 +32,17 @@ RUN apt-get update && apt-get upgrade -y \
     pdo_mysql \
     pdo_pgsql \
     soap \
-    zip \
-    && docker-php-ext-configure gd \
-    --with-freetype-dir=/usr/include/ \
-    --with-jpeg-dir=/usr/include/ \
-    --with-png-dir=/usr/include/ \
+    zip;
+
+RUN docker-php-ext-configure gd \
+    --with-freetype=/usr/include/ \
+    --with-jpeg=/usr/include/ \
     && docker-php-ext-install gd \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
-    && yes '' | pecl install imagick && docker-php-ext-enable imagick \
-    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+    && yes '' | pecl install imagick && docker-php-ext-enable imagick;
+
+RUN PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos -with-imap-ssl \
     && docker-php-ext-install imap \
     && pecl install memcached && docker-php-ext-enable memcached \
     && pecl install mongodb && docker-php-ext-enable mongodb \

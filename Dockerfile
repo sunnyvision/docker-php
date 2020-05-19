@@ -1,4 +1,4 @@
-FROM php:7.4.0-fpm
+FROM php:7.4.5-fpm
 
 LABEL maintainer="Michael Tam <michael@sunnyvision.com>"
 LABEL maintainer="Michael Tam <h.y.michael@icloud.com>"
